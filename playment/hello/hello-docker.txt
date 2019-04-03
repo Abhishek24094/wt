@@ -1,0 +1,8 @@
+FROM centos:7
+WORKDIR /root
+COPY hello-service.py /opt
+RUN yum -y install epel-release
+RUN yum -y install python-pip
+RUN pip  install flask
+RUN pip  install flask_restful
+CMD ["python","/opt/hello-service.py"]

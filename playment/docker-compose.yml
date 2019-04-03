@@ -1,0 +1,29 @@
+version: '3'
+services:
+  hello_service:
+    container_name: hello-container
+    build:
+      context: ./hello
+      dockerfile: hello-docker.txt 
+    ports:
+     - "3000:3000"
+    expose:
+     - "3000"
+  world_service:
+    container_name: world-container
+    build:
+      context: ./world
+      dockerfile: worlddocker
+    ports:
+     - "4000:4000"
+    expose:
+     - "4000"
+  nginx_service:
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: nginx-dockerfile
+    ports:
+     - "80:80"
+    expose:
+     - "80"

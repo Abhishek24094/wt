@@ -1,0 +1,9 @@
+FROM nginx
+WORKDIR /root
+RUN apt-get update
+RUN apt-get --assume-yes install python
+RUN apt-get --assume-yes install curl
+COPY fetchip.py /root
+COPY default.conf /root
+RUN python fetchip.py
+RUN cp default.conf /etc/nginx/conf.d/

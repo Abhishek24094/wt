@@ -1,0 +1,9 @@
+FROM centos:7
+WORKDIR /root
+COPY world.py .
+RUN yum -y install epel-release
+RUN yum -y install python-pip
+RUN pip  install flask
+RUN pip  install flask_restful
+CMD ["python","/root/world.py"]
+
