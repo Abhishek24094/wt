@@ -1,0 +1,38 @@
+{
+   "AWSTemplateFormatVersion" : "2010-09-09",
+   "Description" : "Ec2 for playment",
+   "Resources" : {
+      "MyEC2Instance" : {
+	      "DependsOn":"SecurityGroup",
+         "Type" : "AWS::EC2::Instance",
+         "Properties" : {
+            "ImageId" : "ami-0de53d8956e8dcf80",
+            "KeyName" : "playment",
+			"InstanceType" : "t2.micro",
+			"SecurityGroups":[{"Ref": "SecurityGroup"}],
+			"Tags": [{
+                    "Key": "Name",
+                    "Value": "yourtag"
+                }]
+         }
+      },
+	  "SecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription" : "Playmentsggroup",
+		       "SecurityGroupIngress" : [{
+            "IpProtocol" : "tcp",
+            "FromPort" : 22,
+            "ToPort" : 4000,
+            "CidrIp" : "0.0.0.0/0"
+         }]
+            }
+        }
+   },
+   "Outputs" : {
+    "PublicIp" : {
+      "Value" : { "Fn::GetAtt" : [ "MyEC2Instance", "PublicIp" ]},
+      "Description" : "Server's PublicIp Address"
+    }
+}
+}        

@@ -1,0 +1,30 @@
+---
+ - hosts: all
+   become: yes
+    
+   tasks: 
+
+    - name: installing docker 
+      yum:
+        name: docker 
+        state: latest
+    - name : starting docker service
+      service: 
+        name: docker
+        state: started
+    - name : copying of files
+      shell: curl https://s3.eu-central-1.amazonaws.com/asg-test-25/default.conf > /opt/default.conf
+    - name : copying of files
+      shell: curl https://s3.eu-central-1.amazonaws.com/asg-test-25/fetchip.py > /opt/fetchip.py
+    - name : changing file for nginx
+      shell : python /opt/fetchip.py
+    - name: Starting nginx container
+      command: docker run -d --name=nginx --network=host -p 80:80 nginx
+    - name : copying file for nginx
+      shell : docker cp /opt/default.conf nginx://etc/nginx/conf.d/default.conf
+    - name : nginx restart
+      shell : docker restart nginx
+    - name: Executing docker command
+      command : docker run -d --name=hello --network=host deepakputhraya/python-hello:v2.0
+    - name: Executing docker command
+      command : docker run -i --name world --network=host deepakputhraya/python-world:v1.0
