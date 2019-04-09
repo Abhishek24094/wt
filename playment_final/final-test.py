@@ -51,9 +51,10 @@ def list():
 	client = boto3.client('cloudformation',region_name='us-east-1')
 	response = client.describe_stacks()
 	for x in (response['Stacks']):
-		for y in x['Tags']:
-			if y['Value'] == 'playment':
-				print(x['StackName'])
+		if x['StackStatus'] == 'CREATE_COMPLETE':
+			for y in x['Tags']:
+				if y['Value'] == 'playment':
+					print(x['StackName'])
 def remove():
 	client = boto3.client('cloudformation',region_name='us-east-1')
 	stackname=input("Please enter service name ")

@@ -32,3 +32,9 @@ TASK [Executing docker command] ************************************************
 changed: [18.232.97.247]
 
 TASK [Executing docker command] ************************************************
+fatal: [18.232.97.247]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: Shared connection to 18.232.97.247 closed.\r\n", "unreachable": true}
+	to retry, use: --limit @/root/playment/wt/playment_final/ansible_final.retry
+
+PLAY RECAP *********************************************************************
+18.232.97.247              : ok=10   changed=9    unreachable=1    failed=0   
+
